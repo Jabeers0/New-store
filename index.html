@@ -3,89 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOONGLOW | Premium Store</title>
+    <title>MOONGLOW | store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark-theme">
 
-    <div class="bg-blur"></div>
+    <div class="bg-overlay"></div>
 
     <nav class="navbar">
-        <div class="nav-container">
+        <div class="container nav-flex">
             <div class="logo">
-                <img src="logo.png" alt="MOONGLOW" class="nav-logo">
-                <span class="logo-name">MOONGLOW</span>
+                <img src="logo.png" alt="MOONGLOW" class="main-logo">
+                <span class="brand-name">MOONGLOW</span>
             </div>
             <div class="nav-right">
-                <div class="search-bar">
+                <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchBar" placeholder="Search..." onkeyup="filterProducts()">
+                    <input type="text" id="searchBar" placeholder="Search premium items..." onkeyup="filterProducts()">
                 </div>
-                <button class="theme-btn"><i class="fa-solid fa-moon"></i></button>
+                <div class="cart-icon"><i class="fa-solid fa-bag-shopping"></i></div>
             </div>
         </div>
     </nav>
 
-    <header class="hero-section">
-        <div class="status-badge"><i class="fa-solid fa-circle-check"></i> Trusted & Secure</div>
-        <h1 class="main-title">Premium Digital Goods</h1>
-        <p class="sub-text">Managed by <b>HRIDOY HASAN</b></p>
-        <div class="hero-btns">
-            <a href="#productList" class="shop-btn">View All Items <i class="fa-solid fa-arrow-down"></i></a>
+    <header class="hero">
+        <div class="container">
+            <div class="hero-badge"><i class="fa-solid fa-crown"></i> Official Premium Store</div>
+            <h1 class="hero-title">Exclusive Digital <br><span class="highlight">Solutions</span></h1>
+            <p class="hero-desc">Managed by <b>HRIDOY HASAN</b> • Trusted by thousands</p>
+            
+            <div class="trust-stats">
+                <div class="stat-item">
+                    <span class="stat-num">500+</span>
+                    <span class="stat-label">Total Orders</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">450+</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">4.9/5</span>
+                    <span class="stat-label"><i class="fa-solid fa-star"></i> Ratings</span>
+                </div>
+            </div>
         </div>
     </header>
 
-    <div class="filters">
-        <div id="dynamicCats" class="cat-list">
-            <button class="cat-item active" onclick="filterByCategory('All', this)"><i class="fa-solid fa-layer-group"></i> All Items</button>
+    <div class="container">
+        <div id="dynamicCats" class="category-scroll">
+            <button class="cat-pill active" onclick="filterByCategory('All', this)">All Items</button>
         </div>
     </div>
 
-    <main class="content">
-        <div id="productList" class="grid-layout">
-            <p class="loading">Fetching data...</p>
+    <main class="container">
+        <div id="productList" class="product-grid">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
         </div>
+
+        <section class="info-grid">
+            <div class="info-box glass">
+                <h3><i class="fa-solid fa-truck-fast"></i> Delivery Policy</h3>
+                <p>Delivery usually takes 5-30 minutes. High-demand items might take up to 2 hours. Always check your WhatsApp after ordering.</p>
+            </div>
+            <div class="info-box glass">
+                <h3><i class="fa-solid fa-rotate-left"></i> Return Policy</h3>
+                <p>We offer a 24-hour replacement warranty for faulty digital keys. No returns for "change of mind" after the product is delivered.</p>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title">Common Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item glass" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Is this store official? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-a">Yes, we provide 100% official and legal digital goods.</div>
+                </div>
+                <div class="faq-item glass" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">What payment methods do you accept? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-a">We accept bKash, Nagad, and Rocket through WhatsApp manual payment.</div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <div class="support-area">
-        <div id="supportMenu" class="support-box">
-            <a href="https://wa.me/8801XXXXXXXXX" class="s-link"><i class="fa-brands fa-whatsapp"></i> WhatsApp Chat</a>
-            <a href="#" class="s-link"><i class="fa-brands fa-discord"></i> Discord Server</a>
+    <div class="support-wrapper">
+        <div class="support-menu glass" id="supportPop">
+            <a href="https://wa.me/8801XXXXXXXXX"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <a href="#"><i class="fa-brands fa-discord"></i> Discord</a>
         </div>
-        <button class="fab-btn" onclick="toggleSupport()"><i class="fa-solid fa-headset"></i></button>
+        <button class="support-fab" onclick="toggleSupport()"><i class="fa-solid fa-headset"></i></button>
     </div>
 
     <div class="modal" id="orderModal">
-        <div class="modal-content">
-            <div class="modal-head">
-                <h3><i class="fa-solid fa-cart-flatbed-suitcase"></i> Confirm Purchase</h3>
-                <span class="close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3>Secure Purchase</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal()"></i>
             </div>
-            <p id="itemDetails" class="item-info"></p>
+            <p id="mInfo"></p>
             <form id="orderForm">
-                <div class="input-field">
+                <div class="input-wrap">
                     <i class="fa-solid fa-user"></i>
-                    <input type="text" id="uName" placeholder="Enter Your Name" required>
+                    <input type="text" id="uName" placeholder="Full Name" required>
                 </div>
-                <div class="input-field">
+                <div class="input-wrap">
                     <i class="fa-brands fa-whatsapp"></i>
                     <input type="text" id="uPhone" placeholder="WhatsApp Number" required>
                 </div>
-                <div class="input-field">
-                    <i class="fa-brands fa-discord"></i>
-                    <input type="text" id="uDiscord" placeholder="Discord User ID">
-                </div>
-                <input type="hidden" id="hName">
-                <input type="hidden" id="hPrice">
-                <button type="submit" class="order-submit">Confirm via WhatsApp <i class="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" class="submit-btn">Place Order <i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
 
     <footer class="footer">
-        <p>&copy; 2026 MOONGLOW Store | Reliable Platform</p>
-        <p class="credit">Developed by <span>HRIDOY HASAN</span></p>
+        <p>&copy; 2026 MOONGLOW Store | Trusted Platform</p>
+        <p class="dev">Developed by <span>HRIDOY HASAN</span></p>
     </footer>
 
     <script src="script.js"></script>
