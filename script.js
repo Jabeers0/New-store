@@ -1,14 +1,16 @@
-const API_KEY = "আপনার_সঠিক_এপিআই_কি"; 
-const SHEET_ID = "আপনার_সঠিক_শিট_আইডি";
-const DISCORD_WEBHOOK = "আপনার_ওয়েব_হুক";
-const WA_NUM = "8801XXXXXXXXX"; 
+// --- আপনার তথ্যগুলো এখানে দিন ---
+const API_KEY = "AIZaSyCTHWjgYwd0DHsXUiTFwyGkr_6A47BBSwM";
+const SHEET_ID = "1B0JdnrWgX98JHbHPIln59UsuPnOFKKWCSoD-Sn0WVHY";
+const SHEET_NAME = "Sheet1"; // শিটের ট্যাবের নাম ঠিকভাবে দিন
+const DISCORD_WEBHOOK = "YOUR_DISCORD_WEBHOOK_URL"; // আপনার ওয়েব হুক লিঙ্ক দিন
+const WA_NUM = "8801XXXXXXXXX"; // হোয়াটসঅ্যাপ নম্বর
 
 let products = [];
 
 async function init() {
     const list = document.getElementById('productList');
-    // রেঞ্জ A:Z পর্যন্ত বাড়ানো হলো যাতে অনেক কলাম থাকলেও পায়
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/A:Z?key=${API_KEY}`;
+    // রেঞ্জ A:Z পর্যন্ত ডাটা নেওয়ার জন্য অটোমেটিক লিঙ্ক
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}!A:Z?key=${API_KEY}`;
 
     try {
         const res = await fetch(url);
@@ -25,7 +27,10 @@ async function init() {
             generateCats(products);
         }
     } catch (e) {
-        list.innerHTML = "<p style='color:red; text-align:center;'>Check API Key & Sheet Public Permission!</p>";
+        list.innerHTML = `<div style="grid-column: 1/-1; text-align:center;">
+            <p style="color:#ef4444; font-size:1.2rem; font-weight:bold;">❌ Connection Error!</p>
+            <p style="opacity:0.6; font-size:0.9rem;">Check API Key, Sheet Permission, or Internet.</p>
+        </div>`;
     }
 }
 
@@ -33,13 +38,19 @@ function render(data) {
     const list = document.getElementById('productList');
     list.innerHTML = data.map(p => `
         <div class="p-card glass">
-            <img src="${p.image || 'https://via.placeholder.com/300x180'}" class="p-img" alt="${p.name}">
+            <img src="${p.image || 'https://via.placeholder.com/300x200?text=Premium'}" class="p-img" alt="${p.name}">
             <div class="p-info">
-                <span class="stock-tag">${p.stock || 'In Stock'}</span>
-                <h3 style="margin: 10px 0;">${p.name}</h3>
-                <p style="font-size: 0.8rem; opacity: 0.6; height: 35px; overflow: hidden;">${p.details || 'Premium Service'}</p>
-                <div style="font-size: 1.8rem; font-weight: 800; margin: 15px 0;">$${p.price}</div>
-                <button class="buy-btn" onclick="openOrder('${p.name}', '${p.price}', '${p.stock}')">Order Now</button>
+                <span class="p-category">${p.category || 'Premium Service'}</span>
+                <h3>${p.name}</h3>
+                <p class="p-details">${p.details || 'Instant Delivery • Secure'}</p>
+                
+                <div style="display: flex; justify-content: center; align-items: center; gap: 10px; font-size:0.7rem;">
+                    <span style="color:#10b981"><i class="fa-solid fa-boxes-stacked"></i> Stock: ${p.stock || 'In Stock'}</span>
+                    <span style="color:#f59e0b"><i class="fa-solid fa-check-double"></i> Instantly Delivered</span>
+                </div>
+
+                <div class="p-price">$${p.price}</div>
+                <button class="buy-btn" onclick="openOrder('${p.name}', '${p.price}', '${p.stock}')">GET ACCESS <i class="fa-solid fa-gem"></i></button>
             </div>
         </div>
     `).join('');
@@ -59,7 +70,7 @@ function filterByCategory(cat, btn) {
 
 function openOrder(n, p, s) {
     document.getElementById('orderModal').style.display = 'grid';
-    document.getElementById('mInfo').innerHTML = `Ordering: <b>${n}</b><br>Unit Price: <b>$${p}</b><br><small>Stock: ${s}</small>`;
+    document.getElementById('mInfo').innerHTML = `Ordering: <b>${n}</b><br>Unit Price: <b>$${p}</b>`;
     
     document.getElementById('orderForm').onsubmit = (e) => {
         e.preventDefault();
@@ -68,31 +79,33 @@ function openOrder(n, p, s) {
         const uPhone = document.getElementById('uPhone').value;
         const total = (parseFloat(p) * parseInt(qty)).toFixed(2);
 
-        // Discord Webhook Notification
+        // --- Discord Webhook Notification ---
         fetch(DISCORD_WEBHOOK, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 embeds: [{
-                    title: "New Order Alert! 🛒",
+                    title: "New Order from MOONGLOW! 🚀",
                     color: 0xa855f7,
                     fields: [
-                        { name: "Product", value: n, inline: true },
+                        { name: "Item", value: n, inline: true },
                         { name: "Quantity", value: qty, inline: true },
-                        { name: "Total Price", value: "$" + total },
-                        { name: "Customer", value: uName },
-                        { name: "WhatsApp", value: uPhone }
+                        { name: "Unit Price", value: "$" + p, inline: true },
+                        { name: "Total Amount", value: "**$" + total + "**" },
+                        { name: "Customer Name", value: uName },
+                        { name: "WhatsApp Phone", value: uPhone }
                     ],
                     timestamp: new Date()
                 }]
             })
         });
 
-        // WhatsApp Redirect
-        const msg = `New Order from MOONGLOW!\nItem: ${n}\nQty: ${qty}\nTotal: $${total}\nName: ${uName}\nPhone: ${uPhone}`;
-        window.location.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`;
+        // --- WhatsApp Redirect ---
+        const waMsg = `Order Details:\nItem: ${n}\nQty: ${qty}\nUnit: $${p}\nTotal: $${total}\n----------------\nName: ${uName}\nPhone: ${uPhone}`;
+        window.location.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`;
     };
 }
 
 function closeModal() { document.getElementById('orderModal').style.display = 'none'; }
+
 init();
