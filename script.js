@@ -1,7 +1,7 @@
 // --- CONFIGURATION (এগুলো পরিবর্তন করুন) ---
 const API_KEY = "AIZaSyCTHWjgYwd0DHsXUiTFwyGkr_6A47BBSwM"; // আপনার দেওয়া কি-টি এখানে বসালাম
-const SHEET_ID = "YOUR_SHEET_ID_HERE"; // আপনার গুগল শিটের আইডি এখানে বসান
-const SHEET_NAME = "Sheet1"; // আপনার শিটের নাম (নিচের ট্যাব থেকে দেখে নিন)
+const SHEET_ID = "1B0JdnrWgX98JHbHPIln59UsuPnOFKKWCSoD-Sn0WVHY"; // আপনার গুগল শিটের আইডি এখানে বসান
+const SHEET_NAME = "Hype deals"; // আপনার শিটের নাম (নিচের ট্যাব থেকে দেখে নিন)
 const WEBHOOK = "https://discord.com/api/webhooks/1488449925048963134/6AY4LqRjwHspJOwKWyxFnh4B5J6_QIRjk5bShCmIEBC2yMNA_lFB2M50Z_M08Sp_vFgi";
 const WA_NUM = "8801947119247"; // আপনার হোয়াটসঅ্যাপ নম্বর
 
