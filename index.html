@@ -3,90 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOONGLOW | Executive Store</title>
+    <title>MOONGLOW | Premium Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-theme">
+<body>
 
-    <div class="bg-glow"></div>
+    <div class="glow-bg"></div>
 
     <nav class="navbar">
         <div class="container nav-flex">
             <div class="logo">
-                <div class="logo-box">M</div>
+                <i class="fa-solid fa-moon-stars" style="color: #a855f7; font-size: 1.8rem;"></i>
                 <span class="brand-name">MOONGLOW</span>
             </div>
-            <div class="nav-right">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchBar" placeholder="Search items..." onkeyup="filterProducts()">
-                </div>
-                <div class="cart-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-            </div>
+            <div class="premium-tag"><i class="fa-solid fa-crown"></i> Official</div>
         </div>
     </nav>
 
     <header class="hero">
         <div class="container">
-            <div class="hero-badge"><i class="fa-solid fa-crown"></i> Official Premium Store</div>
-            <h1 class="hero-title">Exclusive Digital <br><span class="highlight">Solutions</span></h1>
-            <p class="hero-desc">Managed by <b>HRIDOY HASAN</b></p>
-            
-            <div class="trust-stats">
-                <div class="stat-item"><b>500+</b><br><span>Orders</span></div>
-                <div class="stat-item"><b>450+</b><br><span>Happy Users</span></div>
-                <div class="stat-item"><b>4.9/5</b><br><span><i class="fa-solid fa-star"></i> Rating</span></div>
-            </div>
+            <h1 class="hero-title">Premium Digital <span class="accent">Assets</span></h1>
+            <p class="hero-subtitle">Fast Delivery • 100% Secure • Trusted</p>
         </div>
     </header>
 
     <div class="container">
-        <div id="dynamicCats" class="category-scroll">
-            </div>
-
-        <div id="productList" class="product-grid">
-            <div class="loading-msg">Fetching premium items from Google Sheets...</div>
-        </div>
-
-        <section class="policy-grid">
-            <div class="policy-card glass">
-                <h3><i class="fa-solid fa-truck-fast"></i> Delivery Policy</h3>
-                <p>Delivery takes 5-30 minutes. Check WhatsApp after ordering.</p>
-            </div>
-            <div class="policy-card glass">
-                <h3><i class="fa-solid fa-rotate-left"></i> Return Policy</h3>
-                <p>24h replacement warranty for faulty digital goods.</p>
-            </div>
-        </section>
+        <div id="dynamicCats" class="cat-container"></div>
     </div>
 
-    <div class="modal" id="orderModal">
-        <div class="modal-card glass">
-            <div class="modal-header">
-                <h3>Secure Purchase</h3>
-                <i class="fa-solid fa-xmark" onclick="closeModal()"></i>
+    <main class="container">
+        <div id="productList" class="product-grid">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Connecting to Cloud...</p>
             </div>
-            <p id="mInfo" class="m-info"></p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 MOONGLOW Store</p>
+        <p class="dev">Developed by <a href="https://facebook.com/yourprofile" target="_blank">HRIDOY HASAN</a></p>
+    </footer>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content glass">
+            <h3><i class="fa-solid fa-cart-shopping"></i> Complete Order</h3>
+            <div id="mInfo" class="order-info"></div>
             <form id="orderForm">
-                <div class="input-group">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" id="uName" placeholder="Your Full Name" required>
-                </div>
-                <div class="input-group">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <input type="text" id="uPhone" placeholder="WhatsApp Number" required>
-                </div>
-                <button type="submit" class="submit-btn">Place Order <i class="fa-solid fa-paper-plane"></i></button>
+                <div class="input-box"><i class="fa-solid fa-user"></i><input type="text" id="uName" placeholder="Full Name" required></div>
+                <div class="input-box"><i class="fa-brands fa-whatsapp"></i><input type="text" id="uPhone" placeholder="WhatsApp Number" required></div>
+                <button type="submit" class="submit-btn">Purchase Now</button>
+                <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
             </form>
         </div>
     </div>
 
-    <footer class="footer">
-        <p>&copy; 2026 MOONGLOW Store | Trusted Platform</p>
-        <p class="dev">Developed by <span>HRIDOY HASAN</span></p>
-    </footer>
-
     <script src="script.js"></script>
 </body>
-</html>
+                    </html>
