@@ -4,100 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOONGLOW | Premium Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
-<body class="dark-mode">
+<body>
 
-    <div class="bg-animation"></div>
+    <div class="bg-blur"></div>
 
-    <nav class="glass-nav">
-        <div class="nav-left">
-            <img src="YOUR_LOGO_IMAGE_URL" alt="Logo" class="site-logo">
-            <span class="logo-text">MOONGLOW</span>
-        </div>
-        <div class="nav-right">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchBar" placeholder="Search..." onkeyup="filterProducts()">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="MOONGLOW" class="nav-logo">
+                <span class="logo-name">MOONGLOW</span>
             </div>
-            <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+            <div class="nav-right">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchBar" placeholder="Search..." onkeyup="filterProducts()">
+                </div>
+                <button class="theme-btn"><i class="fa-solid fa-moon"></i></button>
+            </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-badges">
-            <span><i class="fas fa-bolt"></i> Fast Delivery</span>
-            <span><i class="fas fa-shield-alt"></i> Secure Payment</span>
-            <span><i class="fas fa-certificate"></i> Official Goods</span>
+    <header class="hero-section">
+        <div class="status-badge"><i class="fa-solid fa-circle-check"></i> Trusted & Secure</div>
+        <h1 class="main-title">Premium Digital Goods</h1>
+        <p class="sub-text">Managed by <b>HRIDOY HASAN</b></p>
+        <div class="hero-btns">
+            <a href="#productList" class="shop-btn">View All Items <i class="fa-solid fa-arrow-down"></i></a>
         </div>
-        <h1 class="glow-text">Premium Digital Goods</h1>
-        <p>Reliable service managed by <strong>HRIDOY HASAN</strong></p>
     </header>
 
-    <div class="category-wrapper">
-        <div class="category-filter" id="dynamicCats">
-            <button class="filter-btn active" onclick="filterByCategory('All')">All Items</button>
+    <div class="filters">
+        <div id="dynamicCats" class="cat-list">
+            <button class="cat-item active" onclick="filterByCategory('All', this)"><i class="fa-solid fa-layer-group"></i> All Items</button>
         </div>
     </div>
 
-    <main class="container">
-        <div class="product-grid" id="productList">
-            <div class="loading-spinner">Connecting to secure database...</div>
+    <main class="content">
+        <div id="productList" class="grid-layout">
+            <p class="loading">Fetching data...</p>
         </div>
-
-        <section id="faq-section">
-            <h2 class="section-title">Common Questions</h2>
-            <div class="faq-list">
-                <div class="faq-card glass" onclick="this.classList.toggle('active')">
-                    <div class="faq-q">How long does delivery take? <i class="fas fa-plus"></i></div>
-                    <div class="faq-a">Usually, it takes 5-20 minutes after payment verification.</div>
-                </div>
-            </div>
-        </section>
-
-        <div id="additional-content"></div>
     </main>
 
-    <div class="support-wrapper">
-        <div class="support-pop" id="supportPop">
-            <p>Need help? Chat with us!</p>
-            <a href="https://wa.me/8801XXXXXXXXX" target="_blank" class="pop-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-            <a href="https://discord.gg/yourlink" target="_blank" class="pop-link"><i class="fab fa-discord"></i> Discord</a>
+    <div class="support-area">
+        <div id="supportMenu" class="support-box">
+            <a href="https://wa.me/8801XXXXXXXXX" class="s-link"><i class="fa-brands fa-whatsapp"></i> WhatsApp Chat</a>
+            <a href="#" class="s-link"><i class="fa-brands fa-discord"></i> Discord Server</a>
         </div>
-        <button class="support-btn" onclick="toggleSupport()">
-            <i class="fas fa-headset"></i>
-        </button>
+        <button class="fab-btn" onclick="toggleSupport()"><i class="fa-solid fa-headset"></i></button>
     </div>
 
     <div class="modal" id="orderModal">
-        <div class="modal-card glass">
-            <h3>Place Order</h3>
-            <div id="mInfo" class="modal-info"></div>
+        <div class="modal-content">
+            <div class="modal-head">
+                <h3><i class="fa-solid fa-cart-flatbed-suitcase"></i> Confirm Purchase</h3>
+                <span class="close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+            </div>
+            <p id="itemDetails" class="item-info"></p>
             <form id="orderForm">
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="uName" placeholder="Full Name" required>
+                <div class="input-field">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="uName" placeholder="Enter Your Name" required>
                 </div>
-                <div class="input-group">
-                    <i class="fab fa-whatsapp"></i>
+                <div class="input-field">
+                    <i class="fa-brands fa-whatsapp"></i>
                     <input type="text" id="uPhone" placeholder="WhatsApp Number" required>
                 </div>
-                <div class="input-group">
-                    <i class="fab fa-discord"></i>
-                    <input type="text" id="uDiscord" placeholder="Discord Username">
+                <div class="input-field">
+                    <i class="fa-brands fa-discord"></i>
+                    <input type="text" id="uDiscord" placeholder="Discord User ID">
                 </div>
-                <input type="hidden" id="hName"><input type="hidden" id="hPrice">
-                <button type="submit" class="confirm-btn">Confirm Order</button>
-                <button type="button" class="close-btn" onclick="closeModal()">Cancel</button>
+                <input type="hidden" id="hName">
+                <input type="hidden" id="hPrice">
+                <button type="submit" class="order-submit">Confirm via WhatsApp <i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 MOONGLOW Store | Trusted Platform</p>
-        <div class="dev-mark">Developed by <span>HRIDOY HASAN</span></div>
+    <footer class="footer">
+        <p>&copy; 2026 MOONGLOW Store | Reliable Platform</p>
+        <p class="credit">Developed by <span>HRIDOY HASAN</span></p>
     </footer>
 
     <script src="script.js"></script>
