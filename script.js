@@ -1,13 +1,13 @@
 const API_KEY = "AIZaSyCTHWjgYwd0DHsXUiTFwyGkr_6A47BBSwM";
 const SHEET_ID = "1B0JdnrWgX98JHbHPIln59UsuPnOFKKWCSoD-Sn0WVHY";
-const DISCORD_WEBHOOK = "YOUR_DISCORD_WEBHOOK_URL"; 
-const WA_NUM = "8801947119247"; // আপনার নম্বর
+const DISCORD_WEBHOOK = "YOUR_DISCORD_WEBHOOK_URL"; // আপনার লিঙ্ক দিন
+const WA_NUM = "8801947119247"; // আপনার নম্বর দিন
 
 let products = [];
 
 async function init() {
     const list = document.getElementById('productList');
-    // শিটের নাম ছাড়াই প্রথম ট্যাব থেকে ডাটা নেওয়ার অটোমেটিক লিঙ্ক
+    // শিটের নাম ছাড়াই প্রথম ট্যাব থেকে ডাটা নেওয়ার অটো-মেথড
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/A:G?key=${API_KEY}`;
 
     try {
@@ -25,19 +25,19 @@ async function init() {
             generateCats(products);
         }
     } catch (e) {
-        list.innerHTML = "❌ Connection Error! Please Refresh.";
+        list.innerHTML = "<p style='grid-column: 1/-1; text-align:center; color:red;'>Sync Error! Ensure Sheet is Public.</p>";
     }
 }
 
 function render(data) {
     const list = document.getElementById('productList');
     list.innerHTML = data.map(p => `
-        <div class="p-card glass">
-            <small style="color:var(--accent)">${p.category}</small>
-            <h3 style="margin:10px 0">${p.name}</h3>
-            <p style="font-size:0.8rem; opacity:0.6">${p.details || 'Premium Product'}</p>
-            <h2 style="margin:15px 0">$${p.price}</h2>
-            <button class="buy-btn" onclick="openOrder('${p.name}', '${p.price}')">Order Now</button>
+        <div class="product-card glass">
+            <small style="color:var(--accent); text-transform:uppercase;">${p.category}</small>
+            <h3>${p.name}</h3>
+            <p>${p.details || 'Premium Service'}</p>
+            <span class="price-label">$${p.price}</span>
+            <button class="buy-now-btn" onclick="openOrder('${p.name}', '${p.price}')">Order Now</button>
         </div>
     `).join('');
 }
@@ -56,17 +56,16 @@ function filterByCategory(cat, btn) {
 
 function openOrder(n, p) {
     document.getElementById('orderModal').style.display = 'grid';
-    document.getElementById('mInfo').innerHTML = `Item: ${n} | Price: $${p}`;
+    document.getElementById('mInfo').innerHTML = `Product: <b>${n}</b> | Price: <b>$${p}</b>`;
     document.getElementById('orderForm').onsubmit = (e) => {
         e.preventDefault();
         const uName = document.getElementById('uName').value;
         const uPhone = document.getElementById('uPhone').value;
         
-        // Webhook
         fetch(DISCORD_WEBHOOK, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ embeds: [{ title: "New Order! 🛒", color: 0xa855f7, fields: [{name:"Item", value:n}, {name:"Price", value:p}, {name:"User", value:uName}, {name:"Phone", value:uPhone}] }] })
+            body: JSON.stringify({ embeds: [{ title: "New Order! 🛒", color: 0xa855f7, fields: [{name:"Item", value:n}, {name:"Price", value:p}, {name:"Customer", value:uName}, {name:"Phone", value:uPhone}] }] })
         });
 
         window.location.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(`Order: ${n}\nPrice: $${p}\nName: ${uName}\nPhone: ${uPhone}`)}`;
