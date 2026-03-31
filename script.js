@@ -1,5 +1,5 @@
 // --- সঠিক তথ্যগুলো এখানে বসান ---
-const API_KEY = "AIZaSyCTHWjgYwd0DHsXUiTFwyGkr_6A47BBSwM"; 
+const API_KEY = "AIzaSyB5uckgAyRZ_xvGwMaYtLl1b7jJ0iQJJRY"; 
 const SHEET_ID = "1B0JdnrWgX98JHbHPIln59UsuPnOFKKWCSoD-Sn0WVHY";
 const SHEET_NAME = "Sheet1"; // আপনার শিটের নিচের ট্যাবের নাম যদি আলাদা হয় তবে সেটা দিন
 const WA_NUM = "8801947119247"; 
