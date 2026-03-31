@@ -1,36 +1,28 @@
-// --- CONFIGURATION ---
-const API_KEY = "AIZaSyCTHWjgYwd0DHsXUiTFwyGkr_6A47BBSwM"; 
+// --- আপনার তথ্যগুলো এখানে দিন ---
+const API_KEY = "AIZaSyCTHWjgYwd0DHsXUiTFwyGkr_6A47BBSwM";
 const SHEET_ID = "1B0JdnrWgX98JHbHPIln59UsuPnOFKKWCSoD-Sn0WVHY";
-const SHEET_NAME = "Sheet1"; // আপনার শিটের ট্যাবের নাম 'Sheet1' হলে এটিই থাকবে
-const WA_NUM = "8801947119247"; // আপনার হোয়াটসঅ্যাপ নম্বর দিন
-const WEBHOOK = ""; // আপনার ডিসকর্ড ওয়েব হুক (থাকলে দিন)
+const SHEET_NAME = "Sheet1"; // গুগল শিটের নিচের ট্যাবের নাম (সাধারণত Sheet1 থাকে)
+const DISCORD_WEBHOOK = "YOUR_DISCORD_WEBHOOK_URL"; // আপনার ডিসকর্ড ওয়েব হুক এখানে দিন
+const WA_NUM = "8801XXXXXXXXX"; // হোয়াটসঅ্যাপ নম্বর
 
 let products = [];
 
-// ১. ডাটা লোড করা
 async function init() {
     const list = document.getElementById('productList');
+    // শিটের নামসহ ফুল পাথ (যাতে নেটওয়ার্ক এরর না আসে)
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}!A:G?key=${API_KEY}`;
 
     try {
         const res = await fetch(url);
         const data = await res.json();
         
-        if (data.error) {
-            console.error("API Error:", data.error.message);
-            list.innerHTML = `<p style="color:#ff4d4d; text-align:center; grid-column: 1/-1;">Error: ${data.error.message}. <br> Make sure the Sheet is Public!</p>`;
-            return;
-        }
-
-        if (data.values && data.values.length > 0) {
+        if (data.values) {
             const rows = data.values;
             const headers = rows[0].map(h => h.toLowerCase().trim());
             
             products = rows.slice(1).map(row => {
                 let obj = {};
-                headers.forEach((header, i) => {
-                    obj[header] = row[i] || "";
-                });
+                headers.forEach((h, i) => obj[h] = row[i] || "");
                 return obj;
             }).filter(p => p.name);
 
@@ -38,33 +30,31 @@ async function init() {
             generateCats(products);
         }
     } catch (e) {
-        list.innerHTML = `<p style="color:#ff4d4d; text-align:center; grid-column: 1/-1;">Network Error! Check your API Key or Sheet settings.</p>`;
+        list.innerHTML = "<p style='text-align:center; color:red;'>Check Internet or Google Sheet Public Setting!</p>";
     }
 }
 
-// ২. প্রোডাক্ট ডিসপ্লে
 function render(data) {
     const list = document.getElementById('productList');
     list.innerHTML = data.map(p => `
         <div class="p-card glass">
-            <div class="p-category">${p.category || 'Premium'}</div>
-            <div class="p-icon"><i class="fa-solid fa-box-open"></i></div>
+            <i class="fa-solid fa-gem" style="color:var(--accent); font-size: 2rem;"></i>
             <h3>${p.name}</h3>
-            <p>${p.details || 'Official Premium Product'}</p>
-            <div class="price-tag">$${p.price}</div>
-            <button class="buy-btn" onclick="openOrder('${p.name}', '${p.price}')">Buy Now</button>
+            <p style="font-size: 0.8rem; opacity: 0.5;">${p.details || 'Instant Delivery'}</p>
+            <span class="price">$${p.price}</span>
+            <button class="buy-btn" onclick="openOrder('${p.name}', '${p.price}')">Order Now</button>
         </div>
     `).join('');
 }
 
-// ৩. ক্যাটাগরি তৈরি
 function generateCats(data) {
     const cats = ['All', ...new Set(data.map(p => p.category).filter(c => c))];
     const container = document.getElementById('dynamicCats');
-    container.innerHTML = cats.map(c => `<button class="cat-pill ${c==='All'?'active':''}" onclick="filterByCategory('${c}', this)">${c}</button>`).join('');
+    container.innerHTML = cats.map(c => `
+        <button class="cat-pill ${c==='All'?'active':''}" onclick="filterByCategory('${c}', this)">${c}</button>
+    `).join('');
 }
 
-// ৪. ফিল্টার ফাংশন
 function filterByCategory(cat, btn) {
     document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -72,27 +62,40 @@ function filterByCategory(cat, btn) {
     render(filtered);
 }
 
-// ৫. সার্চ ফাংশন
-function filterProducts() {
-    const q = document.getElementById('searchBar').value.toLowerCase();
-    const filtered = products.filter(p => p.name.toLowerCase().includes(q));
-    render(filtered);
-}
-
-// ৬. অর্ডার মডাল
 function openOrder(n, p) {
-    const modal = document.getElementById('orderModal');
-    modal.style.display = 'grid';
+    document.getElementById('orderModal').style.display = 'grid';
     document.getElementById('mInfo').innerHTML = `Product: <b>${n}</b> | Price: <b>$${p}</b>`;
     
-    document.getElementById('orderForm').onsubmit = (e) => {
+    document.getElementById('orderForm').onsubmit = async (e) => {
         e.preventDefault();
         const uName = document.getElementById('uName').value;
         const uPhone = document.getElementById('uPhone').value;
-        
-        // WhatsApp Redirect
-        const msg = `Hello MOONGLOW! I want to buy:\nProduct: ${n}\nPrice: $${p}\nName: ${uName}\nWhatsApp: ${uPhone}`;
-        window.location.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`;
+
+        // --- Discord Webhook Notification ---
+        const discordData = {
+            embeds: [{
+                title: "New Order Received! 🛒",
+                color: 0xa855f7,
+                fields: [
+                    { name: "Customer Name", value: uName, inline: true },
+                    { name: "WhatsApp", value: uPhone, inline: true },
+                    { name: "Product", value: n },
+                    { name: "Price", value: "$" + p }
+                ],
+                footer: { text: "MOONGLOW Store Notification" },
+                timestamp: new Date()
+            }]
+        };
+
+        await fetch(DISCORD_WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(discordData)
+        });
+
+        // --- WhatsApp Redirect ---
+        const waMsg = `Hello MOONGLOW!\nNew Order Details:\nItem: ${n}\nPrice: $${p}\nName: ${uName}\nPhone: ${uPhone}`;
+        window.location.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`;
     };
 }
 
