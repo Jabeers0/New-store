@@ -1,28 +1,30 @@
-const API_URL = "YOUR_APPS_SCRIPT_URL";
-const WEBHOOK = "YOUR_DISCORD_WEBHOOK";
+// আপনার সঠিক Apps Script URL এখানে বসান
+const API_URL = "YOUR_GOOGLE_SHEET_WEB_APP_URL"; 
+const WEBHOOK = "YOUR_DISCORD_WEBHOOK_URL";
 const WA_NUM = "8801XXXXXXXXX";
 
 let products = [];
 
 async function init() {
+    const list = document.getElementById('productList');
     try {
         const res = await fetch(API_URL);
         products = await res.json();
         render(products);
         generateCats(products);
     } catch (e) {
-        document.getElementById('productList').innerHTML = "<p>Failed to connect to database.</p>";
+        list.innerHTML = `<p style="color: #ef4444; text-align: center; grid-column: 1/-1;">⚠️ Database Connection Failed! Please check API URL.</p>`;
     }
 }
 
 function render(data) {
     const list = document.getElementById('productList');
     list.innerHTML = data.map(p => `
-        <div class="p-card">
-            <div style="font-size: 2.5rem; color: var(--accent); margin-bottom: 15px;"><i class="fa-solid fa-cube"></i></div>
-            <h3 style="margin: 0;">${p.name}</h3>
-            <p style="font-size: 0.8rem; opacity: 0.5;">${p.details}</p>
-            <div class="price-tag">$${p.price}</div>
+        <div class="p-card glass">
+            <i class="fa-solid fa-box-open" style="font-size: 2.5rem; color: var(--accent)"></i>
+            <h3 style="margin: 15px 0 10px;">${p.name}</h3>
+            <p style="font-size: 0.85rem; opacity: 0.5; height: 40px;">${p.details}</p>
+            <span class="price">$${p.price}</span>
             <button class="buy-btn" onclick="openOrder('${p.name}', '${p.price}')">Purchase Now</button>
         </div>
     `).join('');
@@ -41,17 +43,45 @@ function filterByCategory(cat, btn) {
     render(filtered);
 }
 
+function filterProducts() {
+    const q = document.getElementById('searchBar').value.toLowerCase();
+    const filtered = products.filter(p => p.name.toLowerCase().includes(q));
+    render(filtered);
+}
+
 function openOrder(n, p) {
     document.getElementById('orderModal').style.display = 'grid';
-    document.getElementById('mInfo').innerHTML = `<b>${n}</b> - Secure Payment: <b>$${p}</b>`;
-    document.getElementById('uName').focus();
+    document.getElementById('mInfo').innerHTML = `Product: <b>${n}</b><br>Amount: <b>$${p}</b>`;
+    document.getElementById('orderForm').onsubmit = (e) => handleOrder(e, n, p);
 }
 
 function closeModal() { document.getElementById('orderModal').style.display = 'none'; }
 
 function toggleSupport() {
-    const menu = document.getElementById('supportPop');
-    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    const pop = document.getElementById('supportPop');
+    pop.style.display = pop.style.display === 'flex' ? 'none' : 'flex';
+}
+
+async function handleOrder(e, prod, pr) {
+    e.preventDefault();
+    const name = document.getElementById('uName').value;
+    const phone = document.getElementById('uPhone').value;
+
+    const embed = {
+        title: "New Order! ✅",
+        color: 0x8b5cf6,
+        fields: [
+            {name: "Customer", value: name, inline: true},
+            {name: "Phone", value: phone, inline: true},
+            {name: "Item", value: prod},
+            {name: "Price", value: "$"+pr}
+        ]
+    };
+
+    fetch(WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({embeds: [embed]}) });
+    
+    const msg = `Hello! I want to buy ${prod} for $${pr}.\nName: ${name}\nPhone: ${phone}`;
+    window.location.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`;
 }
 
 init();
