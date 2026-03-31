@@ -6,64 +6,88 @@
     <title>MOONGLOW | Premium Store</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body class="dark-mode">
 
-    <div class="bg-animation">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
-    </div>
+    <div class="bg-animation"></div>
 
     <nav class="glass-nav">
-        <div class="logo">MOONGLOW</div>
-        <div class="nav-actions">
-            <input type="text" id="searchBar" placeholder="Search products..." onkeyup="filterProducts()">
+        <div class="nav-left">
+            <img src="YOUR_LOGO_IMAGE_URL" alt="Logo" class="site-logo">
+            <span class="logo-text">MOONGLOW</span>
+        </div>
+        <div class="nav-right">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchBar" placeholder="Search..." onkeyup="filterProducts()">
+            </div>
             <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="trust-pill">Trusted by 1,500+ Customers</div>
-        <h1 class="glow-text">Premium Digital Services</h1>
-        <p>Managed by <strong>HRIDOY HASAN</strong>. Fast Delivery & Best Support.</p>
+        <div class="hero-badges">
+            <span><i class="fas fa-bolt"></i> Fast Delivery</span>
+            <span><i class="fas fa-shield-alt"></i> Secure Payment</span>
+            <span><i class="fas fa-certificate"></i> Official Goods</span>
+        </div>
+        <h1 class="glow-text">Premium Digital Goods</h1>
+        <p>Reliable service managed by <strong>HRIDOY HASAN</strong></p>
     </header>
 
     <div class="category-wrapper">
-        <div class="category-filter" id="catFilter">
-            <button class="filter-btn active" onclick="filterByCategory('All')">All Products</button>
-            <button class="filter-btn" onclick="filterByCategory('Discord')">Discord</button>
-            <button class="filter-btn" onclick="filterByCategory('Gaming')">Gaming</button>
-            <button class="filter-btn" onclick="filterByCategory('Software')">Software</button>
+        <div class="category-filter" id="dynamicCats">
+            <button class="filter-btn active" onclick="filterByCategory('All')">All Items</button>
         </div>
     </div>
 
     <main class="container">
         <div class="product-grid" id="productList">
-            <div class="loader-text">Fetching secure data from database...</div>
+            <div class="loading-spinner">Connecting to secure database...</div>
         </div>
 
-        <h2 class="section-title">FAQ Section</h2>
-        <div class="faq-list">
-            <div class="faq-card glass" onclick="this.classList.toggle('active')">
-                <div class="faq-q">Delivery Time? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Orders are processed within 5-30 minutes after payment.</div>
+        <section id="faq-section">
+            <h2 class="section-title">Common Questions</h2>
+            <div class="faq-list">
+                <div class="faq-card glass" onclick="this.classList.toggle('active')">
+                    <div class="faq-q">How long does delivery take? <i class="fas fa-plus"></i></div>
+                    <div class="faq-a">Usually, it takes 5-20 minutes after payment verification.</div>
+                </div>
             </div>
-            <div class="faq-card glass" onclick="this.classList.toggle('active')">
-                <div class="faq-q">Payment Methods? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">We accept Bkash, Nagad, and Rocket (Personal/Merchant).</div>
-            </div>
-        </div>
+        </section>
+
+        <div id="additional-content"></div>
     </main>
+
+    <div class="support-wrapper">
+        <div class="support-pop" id="supportPop">
+            <p>Need help? Chat with us!</p>
+            <a href="https://wa.me/8801XXXXXXXXX" target="_blank" class="pop-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://discord.gg/yourlink" target="_blank" class="pop-link"><i class="fab fa-discord"></i> Discord</a>
+        </div>
+        <button class="support-btn" onclick="toggleSupport()">
+            <i class="fas fa-headset"></i>
+        </button>
+    </div>
 
     <div class="modal" id="orderModal">
         <div class="modal-card glass">
-            <h3>Complete Purchase</h3>
-            <p id="mPriceDisplay"></p>
+            <h3>Place Order</h3>
+            <div id="mInfo" class="modal-info"></div>
             <form id="orderForm">
-                <input type="text" id="uName" placeholder="Full Name" required>
-                <input type="text" id="uPhone" placeholder="WhatsApp Number" required>
-                <input type="text" id="uDiscord" placeholder="Discord User ID">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="uName" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fab fa-whatsapp"></i>
+                    <input type="text" id="uPhone" placeholder="WhatsApp Number" required>
+                </div>
+                <div class="input-group">
+                    <i class="fab fa-discord"></i>
+                    <input type="text" id="uDiscord" placeholder="Discord Username">
+                </div>
                 <input type="hidden" id="hName"><input type="hidden" id="hPrice">
                 <button type="submit" class="confirm-btn">Confirm Order</button>
                 <button type="button" class="close-btn" onclick="closeModal()">Cancel</button>
@@ -72,8 +96,8 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 MOONGLOW Store | All Rights Reserved</p>
-        <p class="credit">Developer: <span>HRIDOY HASAN</span></p>
+        <p>&copy; 2026 MOONGLOW Store | Trusted Platform</p>
+        <div class="dev-mark">Developed by <span>HRIDOY HASAN</span></div>
     </footer>
 
     <script src="script.js"></script>
