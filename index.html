@@ -3,123 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOONGLOW | store</title>
+    <title>MOONGLOW | Executive Digital Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-theme">
+<body>
 
-    <div class="bg-overlay"></div>
+    <div class="bg-glow"></div>
 
     <nav class="navbar">
         <div class="container nav-flex">
             <div class="logo">
-                <img src="logo.png" alt="MOONGLOW" class="main-logo">
+                <img src="logo.png" alt="MOONGLOW" class="nav-logo">
                 <span class="brand-name">MOONGLOW</span>
             </div>
             <div class="nav-right">
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchBar" placeholder="Search premium items..." onkeyup="filterProducts()">
+                    <input type="text" id="searchBar" placeholder="Search premium..." onkeyup="filterProducts()">
                 </div>
-                <div class="cart-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                <button class="cart-btn"><i class="fa-solid fa-bag-shopping"></i></button>
             </div>
         </div>
     </nav>
 
     <header class="hero">
         <div class="container">
-            <div class="hero-badge"><i class="fa-solid fa-crown"></i> Official Premium Store</div>
-            <h1 class="hero-title">Exclusive Digital <br><span class="highlight">Solutions</span></h1>
-            <p class="hero-desc">Managed by <b>HRIDOY HASAN</b> • Trusted by thousands</p>
+            <div class="badge"><i class="fa-solid fa-crown"></i> Official Premium Store</div>
+            <h1 class="hero-title">Exclusive Digital <br><span class="accent">Solutions</span></h1>
+            <p class="hero-subtitle">Managed by <b>HRIDOY HASAN</b> • Trusted by thousands</p>
             
-            <div class="trust-stats">
-                <div class="stat-item">
-                    <span class="stat-num">500+</span>
-                    <span class="stat-label">Total Orders</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-num">450+</span>
-                    <span class="stat-label">Happy Customers</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-num">4.9/5</span>
-                    <span class="stat-label"><i class="fa-solid fa-star"></i> Ratings</span>
-                </div>
+            <div class="trust-row">
+                <div class="stat"><span class="num">500+</span><span class="lab">Orders</span></div>
+                <div class="stat"><span class="num">450+</span><span class="lab">Happy Users</span></div>
+                <div class="stat"><span class="num">4.9/5</span><span class="lab"><i class="fa-solid fa-star"></i> Rating</span></div>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <div id="dynamicCats" class="category-scroll">
+        <div id="dynamicCats" class="category-wrap">
             <button class="cat-pill active" onclick="filterByCategory('All', this)">All Items</button>
         </div>
     </div>
 
     <main class="container">
         <div id="productList" class="product-grid">
-            <div class="skeleton-card"></div>
-            <div class="skeleton-card"></div>
+            <div class="shimmer-loader">Fetching premium data...</div>
         </div>
 
-        <section class="info-grid">
-            <div class="info-box glass">
+        <section class="policy-grid">
+            <div class="p-box glass">
                 <h3><i class="fa-solid fa-truck-fast"></i> Delivery Policy</h3>
-                <p>Delivery usually takes 5-30 minutes. High-demand items might take up to 2 hours. Always check your WhatsApp after ordering.</p>
+                <p>Fast delivery within 5-30 minutes. In peak hours, it may take up to 2 hours.</p>
             </div>
-            <div class="info-box glass">
-                <h3><i class="fa-solid fa-rotate-left"></i> Return Policy</h3>
-                <p>We offer a 24-hour replacement warranty for faulty digital keys. No returns for "change of mind" after the product is delivered.</p>
+            <div class="p-box glass">
+                <h3><i class="fa-solid fa-shield-halved"></i> Return Policy</h3>
+                <p>24-hour warranty for faulty keys. No refunds after the product is delivered.</p>
             </div>
         </section>
 
         <section class="faq-section">
-            <h2 class="section-title">Common Questions</h2>
+            <h2 class="title-text">Frequently Asked Questions</h2>
             <div class="faq-container">
-                <div class="faq-item glass" onclick="this.classList.toggle('open')">
-                    <div class="faq-q">Is this store official? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-a">Yes, we provide 100% official and legal digital goods.</div>
-                </div>
-                <div class="faq-item glass" onclick="this.classList.toggle('open')">
-                    <div class="faq-q">What payment methods do you accept? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-a">We accept bKash, Nagad, and Rocket through WhatsApp manual payment.</div>
+                <div class="faq-card glass" onclick="this.classList.toggle('active')">
+                    <div class="faq-q">Is it safe to buy? <i class="fa-solid fa-plus"></i></div>
+                    <div class="faq-a">Yes, we provide 100% official and legal digital assets.</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <div class="support-wrapper">
-        <div class="support-menu glass" id="supportPop">
+    <div class="support-area">
+        <div class="support-pop glass" id="supportPop">
             <a href="https://wa.me/8801XXXXXXXXX"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
             <a href="#"><i class="fa-brands fa-discord"></i> Discord</a>
         </div>
-        <button class="support-fab" onclick="toggleSupport()"><i class="fa-solid fa-headset"></i></button>
+        <button class="fab" onclick="toggleSupport()"><i class="fa-solid fa-headset"></i></button>
     </div>
 
     <div class="modal" id="orderModal">
         <div class="modal-card glass">
             <div class="modal-header">
-                <h3>Secure Purchase</h3>
+                <h3>Secure Checkout</h3>
                 <i class="fa-solid fa-xmark" onclick="closeModal()"></i>
             </div>
-            <p id="mInfo"></p>
+            <p id="mInfo" class="order-info"></p>
             <form id="orderForm">
-                <div class="input-wrap">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" id="uName" placeholder="Full Name" required>
-                </div>
-                <div class="input-wrap">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <input type="text" id="uPhone" placeholder="WhatsApp Number" required>
-                </div>
-                <button type="submit" class="submit-btn">Place Order <i class="fa-solid fa-paper-plane"></i></button>
+                <div class="field"><i class="fa-solid fa-user"></i><input type="text" id="uName" placeholder="Full Name" required></div>
+                <div class="field"><i class="fa-brands fa-whatsapp"></i><input type="text" id="uPhone" placeholder="WhatsApp Number" required></div>
+                <button type="submit" class="submit-btn">Confirm Order <i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
 
-    <footer class="footer">
-        <p>&copy; 2026 MOONGLOW Store | Trusted Platform</p>
-        <p class="dev">Developed by <span>HRIDOY HASAN</span></p>
+    <footer class="site-footer">
+        <p>&copy; 2026 MOONGLOW Store | All Rights Reserved</p>
+        <p class="dev-tag">Crafted by <span>HRIDOY HASAN</span></p>
     </footer>
 
     <script src="script.js"></script>
