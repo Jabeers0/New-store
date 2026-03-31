@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOONGLOW | Premium Store</title>
+    <title>MOONGLOW | Executive Digital Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark-theme">
 
     <div class="glow-bg"></div>
 
@@ -19,52 +19,87 @@
     <nav class="navbar">
         <div class="container nav-flex">
             <div class="logo">
-                <div class="logo-box">M</div>
+                <div class="logo-box"><i class="fa-solid fa-moon"></i></div>
                 <span class="brand-name">MOONGLOW</span>
             </div>
-            <div class="premium-tag">PREMIUM SOLUTIONS</div>
+            <div class="nav-right">
+                <div class="premium-tag"><i class="fa-solid fa-crown"></i> Official</div>
+                <div class="cart-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+            </div>
         </div>
     </nav>
 
     <header class="hero">
         <div class="container">
-            <h1 class="hero-title">Exclusive <span class="accent">Digital Assets</span></h1>
-            <p class="hero-sub">Fast • Secure • Reliable</p>
+            <div class="hero-badge"><i class="fa-solid fa-gem"></i> Premium Digital Solutions</div>
+            <h1 class="hero-title">Elevate Your <br><span class="accent">Digital Life</span></h1>
+            <p class="hero-sub">Trust • Quality • Instant Delivery</p>
+            
+            <div class="stats-row">
+                <div class="stat glass"><i class="fa-solid fa-shopping-cart"></i><b>500+</b>Orders</div>
+                <div class="stat glass"><i class="fa-solid fa-face-smile"></i><b>450+</b>Users</div>
+                <div class="stat glass"><i class="fa-solid fa-star"></i><b>4.9⭐</b>Rating</div>
+            </div>
         </div>
     </header>
 
-    <div class="container">
+    <div class="container main-content">
         <div id="dynamicCats" class="cat-wrapper"></div>
 
         <div id="productList" class="product-grid">
-            <div class="loader">
+            <div class="loading-box">
                 <div class="spinner"></div>
-                <p>Syncing with Cloud...</p>
+                <p>Syncing Cloud Assets...</p>
             </div>
         </div>
-    </div>
 
-    <div id="orderModal" class="modal">
-        <div class="modal-content glass">
-            <h3>Confirm Your Order</h3>
-            <div id="mInfo" class="order-summary"></div>
-            
-            <form id="orderForm">
-                <div class="qty-control">
-                    <label>Select Quantity:</label>
-                    <input type="number" id="uQty" value="1" min="1" max="10" required class="form-input">
-                </div>
-                <input type="text" id="uName" placeholder="Full Name" required class="form-input">
-                <input type="text" id="uPhone" placeholder="WhatsApp Number" required class="form-input">
-                <button type="submit" class="submit-btn">Proceed to WhatsApp</button>
-                <button type="button" class="close-link" onclick="closeModal()">Cancel</button>
-            </form>
-        </div>
+        <section class="policy-grid">
+            <div class="policy-card glass">
+                <i class="fa-solid fa-truck-fast"></i>
+                <h3>Delivery</h3>
+                <p>Instant delivery within 5-30 mins.</p>
+            </div>
+            <div class="policy-card glass">
+                <i class="fa-solid fa-rotate-left"></i>
+                <h3>Return</h3>
+                <p>24h replacement if issues found.</p>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="title-center"><i class="fa-solid fa-question-circle"></i> General FAQs</h2>
+            <div class="faq-card glass">
+                <b><i class="fa-solid fa-cart-plus"></i> How to order?</b>
+                <p>Click "Order Now", fill the form, pay, and check WhatsApp.</p>
+            </div>
+        </section>
     </div>
 
     <footer class="footer">
-        <p>&copy; 2026 MOONGLOW | Developed by <a href="https://facebook.com/yourprofile" target="_blank">HRIDOY HASAN</a></p>
+        <div class="container">
+            <p>&copy; 2026 MOONGLOW Store | All Rights Reserved.</p>
+            <p class="owner">Developed by <i class="fa-solid fa-code"></i> <a href="https://facebook.com/yourprofile" target="_blank">HRIDOY HASAN</a></p>
+        </div>
     </footer>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> Purchase</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="mInfo" class="order-summary"></div>
+            <form id="orderForm">
+                <div class="qty-group">
+                    <label><i class="fa-solid fa-boxes-stacked"></i> Quantity:</label>
+                    <input type="number" id="uQty" value="1" min="1" max="10" required class="form-input qty-input">
+                </div>
+                <div class="input-field"><i class="fa-solid fa-user"></i><input type="text" id="uName" placeholder="Full Name" required></div>
+                <div class="input-field"><i class="fa-brands fa-whatsapp"></i><input type="text" id="uPhone" placeholder="WhatsApp Number" required></div>
+                <button type="submit" class="submit-btn">Continue to Payment <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
