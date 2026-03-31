@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOONGLOW | Premium Store</title>
+    <title>MOONGLOW | Premium Digital Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,50 +11,76 @@
 
     <div class="glow-bg"></div>
 
+    <div class="floating-support">
+        <a href="https://wa.me/8801XXXXXXXXX" class="sup-btn wa" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://discord.gg/yourlink" class="sup-btn dc" target="_blank"><i class="fa-brands fa-discord"></i></a>
+    </div>
+
     <nav class="navbar">
         <div class="container nav-flex">
             <div class="logo">
-                <i class="fa-solid fa-moon-stars" style="color: #a855f7; font-size: 1.8rem;"></i>
+                <div class="logo-box">M</div>
                 <span class="brand-name">MOONGLOW</span>
             </div>
-            <div class="premium-tag"><i class="fa-solid fa-crown"></i> Official</div>
+            <div class="premium-tag">OFFICIAL STORE</div>
         </div>
     </nav>
 
     <header class="hero">
         <div class="container">
-            <h1 class="hero-title">Premium Digital <span class="accent">Assets</span></h1>
-            <p class="hero-subtitle">Fast Delivery • 100% Secure • Trusted</p>
+            <h1 class="hero-title">Exclusive Digital <br><span class="accent">Solutions</span></h1>
+            <p class="hero-sub">Trust • Quality • Instant Delivery</p>
+            
+            <div class="stats-row">
+                <div class="stat glass"><b>500+</b><br>Orders</div>
+                <div class="stat glass"><b>450+</b><br>Happy Users</div>
+                <div class="stat glass"><b>4.9⭐</b><br>Rating</div>
+            </div>
         </div>
     </header>
 
     <div class="container">
-        <div id="dynamicCats" class="cat-container"></div>
-    </div>
-
-    <main class="container">
+        <div id="dynamicCats" class="cat-bar"></div>
         <div id="productList" class="product-grid">
-            <div class="loading-state">
-                <div class="spinner"></div>
-                <p>Connecting to Cloud...</p>
-            </div>
+            <div class="loader">Fetching Premium Assets...</div>
         </div>
-    </main>
+
+        <section class="policy-grid">
+            <div class="p-card glass">
+                <i class="fa-solid fa-truck-fast"></i>
+                <h3>Delivery</h3>
+                <p>Instant delivery within 5-30 minutes after payment.</p>
+            </div>
+            <div class="p-card glass">
+                <i class="fa-solid fa-rotate-left"></i>
+                <h3>Return</h3>
+                <p>24h replacement warranty if any issue found.</p>
+            </div>
+        </section>
+
+        <section class="faq">
+            <h2 class="title">FAQs</h2>
+            <div class="faq-box glass">
+                <b>How to Buy?</b>
+                <p>Click order, provide details, pay via Bkash/Nagad.</p>
+            </div>
+        </section>
+    </div>
 
     <footer class="footer">
         <p>&copy; 2026 MOONGLOW Store</p>
-        <p class="dev">Developed by <a href="https://facebook.com/yourprofile" target="_blank">HRIDOY HASAN</a></p>
+        <p>Owner: <a href="https://facebook.com/yourprofile" target="_blank">HRIDOY HASAN</a></p>
     </footer>
 
     <div id="orderModal" class="modal">
         <div class="modal-content glass">
-            <h3><i class="fa-solid fa-cart-shopping"></i> Complete Order</h3>
-            <div id="mInfo" class="order-info"></div>
+            <h3>Confirm Purchase</h3>
+            <div id="mInfo" class="m-info"></div>
             <form id="orderForm">
-                <div class="input-box"><i class="fa-solid fa-user"></i><input type="text" id="uName" placeholder="Full Name" required></div>
-                <div class="input-box"><i class="fa-brands fa-whatsapp"></i><input type="text" id="uPhone" placeholder="WhatsApp Number" required></div>
-                <button type="submit" class="submit-btn">Purchase Now</button>
-                <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <input type="text" id="uName" placeholder="Full Name" required class="input">
+                <input type="text" id="uPhone" placeholder="WhatsApp Number" required class="input">
+                <button type="submit" class="order-btn">Submit Order</button>
+                <p onclick="closeModal()" style="cursor:pointer; opacity:0.5; margin-top:10px;">Close</p>
             </form>
         </div>
     </div>
